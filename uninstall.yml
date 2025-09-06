@@ -1,0 +1,49 @@
+---
+- name: Uninstall Nginx and MySQL from Ubuntu servers
+  hosts: all
+  become: yes
+  tasks:
+    - name: Stop Nginx service
+      service:
+        name: nginx
+        state: stopped
+      ignore_errors: yes
+
+    - name: Stop MySQL service
+      service:
+        name: mysql
+        state: stopped
+      ignore_errors: yes
+
+    - name: Remove Nginx
+      apt:
+        name: nginx*
+        state: absent
+        purge: yes
+        autoremove: yes
+        update_cache: yes
+
+    - name: Remove MySQL
+      apt:
+        name: "{{ item }}"
+        state: absent
+        purge: yes
+        autoremove: yes
+      with_items:
+        - mysql-server
+        - mysql-client
+        - mysql-common
+        - libmysqlclient-dev
+
+    - name: Delete MySQL data directory
+      file:
+        path: /var/lib/mysql
+        state: absent
+      ignore_errors: yes
+
+    - name: Delete Nginx config directory
+      file:
+        path: /etc/nginx
+        state: absent
+      ignore_errors: yes
+

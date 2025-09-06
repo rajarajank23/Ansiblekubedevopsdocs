@@ -1,0 +1,12 @@
+ansible all -m ping --->check the connection
+
+ansible-play nginx.yml
+
+chmod 600 /home/ubuntu/.ssh/ecrrepo.pem
+
+sudo chown ubuntu:ubuntu /home/ubuntu/.ssh/ecrrepo.pem
+
+
+ls -l /home/ubuntu/.ssh/ecrrepo.pem
+
+-rw------- 1 ubuntu ubuntu 1675 Sep  6 06:47 /home/ubuntu/.ssh/ecrrepo.pem

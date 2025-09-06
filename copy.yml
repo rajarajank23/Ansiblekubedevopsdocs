@@ -1,0 +1,13 @@
+---
+- name: Copy file from control node to remote server
+  hosts: all
+  become: yes
+  tasks:
+    - name: Copy nginx-mysql.yml to remote server
+      copy:
+        src: /home/ubuntu/awscli.yml
+        dest: /home/ubuntu/awscli.yml
+        owner: ubuntu
+        group: ubuntu
+        mode: '0644'
+
